@@ -16,7 +16,7 @@ export function NavBar() {
         HOME
       </Box>
       <Box
-        onClick={() => navigate("/boardWrite")}
+        onClick={() => navigate("/write")}
         cursor={"pointer"}
         _hover={{
           bgColor: "gray.200",
