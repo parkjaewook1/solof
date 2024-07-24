@@ -19,10 +19,20 @@ export function NavBar() {
         onClick={() => navigate("/write")}
         cursor={"pointer"}
         _hover={{
-          bgColor: "gray.200",
+          bgColor: "blue.200",
         }}
       >
         글쓰기
+      </Box>
+
+      <Box
+        onClick={() => navigate("/signup")}
+        cursor={"pointer"}
+        _hover={{
+          bgColor: "blue.200",
+        }}
+      >
+        회원 가입
       </Box>
     </Flex>
   );
