@@ -2,8 +2,11 @@ import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -12,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 export function MemberSignup() {
   const [email, setEmail] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [password, setPassword] = useState("");
   const [nickName, setNickName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,14 +53,67 @@ export function MemberSignup() {
       });
   }
 
+  function handleCheckEmail() {
+    axios
+      .get(`/api/member/check?email=${email}`)
+      .then((res) => {
+        toast({
+          status: "warning",
+          description: "사용할 수 없는 이메일입니다.",
+          position: "top",
+        });
+      }) //이미 있는 이메일(사용 못함)
+      .catch((err) => {
+        if (err.response.status === 404) {
+          toast({
+            status: "info",
+            description: "사용할 수 있는 이메일입니다.",
+            position: "top",
+          });
+        }
+      })
+      .finally();
+  }
+
+  function handleCheckNickName() {
+    axios
+      .get(`/api/member/check?nickName=${nickName}`)
+      .then((res) => {
+        toast({
+          status: "warning",
+          description: "사용할 수 없는 닉네임입니다.",
+          position: "top",
+        });
+      }) //이미 있는 이메일(사용 못함)
+      .catch((err) => {
+        if (err.response.status === 404) {
+          toast({
+            status: "info",
+            description: "사용할 수 있는 닉네임입니다.",
+            position: "top",
+          });
+        }
+      })
+      .finally();
+  }
+
+  const isCheckedPassword = password === passwordCheck;
+
   return (
     <Box>
-      <Box>회원 가입</Box>
+      <Box>회원 가입</Box>임{" "}
       <Box>
         <Box>
           <FormControl>
             <FormLabel>이메일</FormLabel>
-            <Input onChange={(e) => setEmail(e.target.value)} />
+            <InputGroup>
+              <Input onChange={(e) => setEmail(e.target.value)} />
+              <InputRightElement w={"75px"} mr={1}>
+                <Button onClick={handleCheckEmail} size={"sm"}>
+                  중복 확인
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
         </Box>
         <Box>
@@ -67,14 +124,30 @@ export function MemberSignup() {
         </Box>
         <Box>
           <FormControl>
+            <FormLabel>암호 확인</FormLabel>
+            <Input onChange={(e) => setPasswordCheck(e.target.value)} />
+            {isCheckedPassword || (
+              <FormHelperText>암호가 일치하지 않습니다.</FormHelperText>
+            )}
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl>
             <FormLabel>별명</FormLabel>
-            <Input onChange={(e) => setNickName(e.target.value)} />
+            <InputGroup>
+              <Input onChange={(e) => setNickName(e.target.value)} />
+              <InputRightElement w={"75px"} mr={1}>
+                <Button size={"sm"} onClick={handleCheckNickName}>
+                  중복 확인
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
         </Box>
         <Box>
           <Button
             isLoading={isLoading}
-            colorScheme={"blue"}
+            color인cheme={"blue"}
             onClick={handleClickPass}
           >
             가입
