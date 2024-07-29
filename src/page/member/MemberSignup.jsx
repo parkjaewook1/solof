@@ -24,6 +24,7 @@ export function MemberSignup() {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+
   function handleClickPass() {
     setIsLoading(true);
     axios
@@ -118,15 +119,19 @@ export function MemberSignup() {
   ) {
     isDisabled = true;
   }
+
   if (!isCheckedEmail) {
     isDisabled = true;
   }
+
   if (!isCheckedNickName) {
     isDisabled = true;
   }
+
   if (!isValidEmail) {
     isDisabled = true;
   }
+
   return (
     <Box>
       <Box>회원 가입</Box>{" "}
