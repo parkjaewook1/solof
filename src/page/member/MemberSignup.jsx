@@ -30,7 +30,7 @@ export function MemberSignup() {
   function handleClickPass() {
     setIsLoading(true);
     axios
-      .post("api/member/signup", { email, password, nickName })
+      .post("/api/member/signup", { email, password, nickName })
       .then((res) => {
         toast({
           status: "success",
@@ -76,6 +76,7 @@ export function MemberSignup() {
             description: "사용할 수 있는 이메일입니다.",
             position: "top",
           });
+          setIsCheckedEmail(true);
         }
       })
       .finally();
@@ -173,7 +174,10 @@ export function MemberSignup() {
         <Box>
           <FormControl>
             <FormLabel>암호</FormLabel>
-            <Input onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </FormControl>
         </Box>
         <Box>
