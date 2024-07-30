@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -24,6 +25,7 @@ export function MemberSignup() {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handleClickPass() {
     setIsLoading(true);
