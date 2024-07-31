@@ -42,6 +42,15 @@ export function NavBar() {
       >
         회원 가입
       </Box>
+      <Box
+        onClick={() => navigate("/login")}
+        cursor={"pointer"}
+        _hover={{
+          bgColor: "blue.200",
+        }}
+      >
+        로그인
+      </Box>
     </Flex>
   );
 }
